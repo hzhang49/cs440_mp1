@@ -24,7 +24,7 @@ public class mp1 extends JFrame {
 	public static info search_s;
 	public static info search_m;
 	public static Stack<MazeObject> step;
-
+     
 	public mp1() {
 		initUI();
 	}
