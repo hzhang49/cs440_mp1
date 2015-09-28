@@ -25,6 +25,7 @@ public class mp1 extends JFrame {
 	public static info search_m;
 	public static info dots_m;
 	public static info dots_b;
+	public static info print;
 	public static Stack<MazeObject> step;
      
 	public mp1() {
@@ -36,7 +37,7 @@ public class mp1 extends JFrame {
 		add(new Board());
 		setTitle("Pacman");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(360, 345);
+		setSize(800, 800);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -152,7 +153,7 @@ public class mp1 extends JFrame {
 		A_star test3 = new A_star();
 		test3.basic(o_info);
 		System.out.println("openMaze: ");
-		print_maze(o_info.maze);
+		print_maze(ghost_b.maze);
 		System.out.println();
 
 	}
@@ -180,15 +181,16 @@ public class mp1 extends JFrame {
 		// A_star_basic();
 
 //		A_star test = new A_star();
-//		test.multi_dot(search_t);
-//		print_maze(search_t.maze);
+//		test.multi_dot(dots_b);
+//		print_maze(dots_b.maze);
 //		System.out.println();
 		
 		 A_star test = new A_star();
-		 step = test.with_ghost(ghost_m);
-		 print_maze(ghost_m.maze);
+		 step = test.with_ghost(ghost_b);
+		 print_maze(ghost_b.maze);
 		 System.out.println();
 		 
+//		 print = ghost_b;
 //		 EventQueue.invokeLater(new Runnable() {
 //		
 //		 @Override

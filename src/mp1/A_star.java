@@ -241,7 +241,7 @@ public class A_star {
 			
 			
 			int[] ghost_next = g_next(in.maze, in.ghost.x, ghost_y, ghost_dir);
-			if (in.maze[x-1][y]==0 && ghost_next[1]!=y)
+			if ((in.maze[x-1][y]==0) && (ghost_next[1]!=y || x-1 != in.ghost.x))
 			{
 				temp = new MazeObject(x, y); 
 				temp.x=x-1;
@@ -255,7 +255,7 @@ public class A_star {
 				frontier.add(temp); 
 				expand++;
 		
-			}else if(in.maze[x-1][y]==0 && ghost_next[1]==y){
+			}else if((in.maze[x-1][y]==0) && (ghost_next[1]==y) && (x-1 == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 
 				temp.x=x;
@@ -270,7 +270,7 @@ public class A_star {
 				expand++;
 			}
 				
-			if (in.maze[x][y-1]==0 && ghost_next[1]!=y-1)
+			if ((in.maze[x][y-1]==0) && (ghost_next[1]!=y-1 || x != in.ghost.x))
 			{
 				temp = new MazeObject(x, y); 				
 				temp.x=x;
@@ -284,7 +284,7 @@ public class A_star {
 				frontier.add(temp); 
 				expand++;
 						
-			}else if(in.maze[x][y-1]==0 && ghost_next[1]==y-1){
+			}else if((in.maze[x][y-1]==0) && (ghost_next[1]==y-1) && (x == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 				
 				temp.x=x;
@@ -299,7 +299,7 @@ public class A_star {
 				expand++;
 			}
 			
-			if (in.maze[x+1][y]==0 && ghost_next[1]!=y)
+			if ((in.maze[x+1][y]==0) && (ghost_next[1]!=y || x+1 != in.ghost.x))
 			{
 				
 				temp = new MazeObject(x, y); 
@@ -314,7 +314,7 @@ public class A_star {
 				frontier.add(temp); 
 				expand++;
 				
-			}else if(in.maze[x+1][y]==0 && ghost_next[1]==y){
+			}else if((in.maze[x+1][y]==0) && (ghost_next[1]==y) && (x+1 == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 
 				temp.x=x;
@@ -329,7 +329,7 @@ public class A_star {
 				expand++;
 			}
 				
-			if (in.maze[x][y+1]==0 && ghost_next[1]!=y+1)
+			if ((in.maze[x][y+1]==0) && (ghost_next[1]!=y+1 || x != in.ghost.x))
 			{
 				temp = new MazeObject(x, y); 
 				temp.x=x;
@@ -342,7 +342,7 @@ public class A_star {
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
 				expand++;
-			}else if(in.maze[x][y+1]==0 && ghost_next[1]==y+1){
+			}else if((in.maze[x][y+1]==0) && (ghost_next[1]==y+1) && (x == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 
 				temp.x=x;

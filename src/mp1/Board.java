@@ -29,7 +29,8 @@ public class Board extends JPanel implements ActionListener {
     private int ghost_x;
     private int ghost_y;
     private int ghost_dir;
-
+    private int g = 0;
+    private int p = 0;
 
     private Image ghost;
     private Image pacman1;
@@ -40,7 +41,7 @@ public class Board extends JPanel implements ActionListener {
 
     public Board() {
     	try {
-    	    Thread.sleep(2000);                 //1000 milliseconds is one second.
+    	    Thread.sleep(1000);                 //1000 milliseconds is one second.
     	} catch(InterruptedException ex) {
     	    Thread.currentThread().interrupt();
     	}
@@ -50,17 +51,17 @@ public class Board extends JPanel implements ActionListener {
         wall = new ImageIcon("wall.png").getImage();
         goal = new ImageIcon("goal.png").getImage();
         
-        d = new Dimension(360, 320);
+        d = new Dimension((mp1.print.maze[0].length)*20, (mp1.print.maze.length)*20);
        
-        ghost_x = mp1.ghost_m.ghost.x;
-        System.out.println(ghost_x);
+        ghost_x = mp1.print.ghost.x;
+        //System.out.println(ghost_x);
         
         
-        ghost_y = mp1.ghost_m.ghost.y;
-        System.out.println(ghost_y);
+        ghost_y = mp1.print.ghost.y-1;
+        //System.out.println(ghost_y);
         ghost_dir = 1;
         
-        timer = new Timer(1000, this);
+        timer = new Timer(400, this);
         timer.start();
         
         setFocusable(true);
@@ -78,10 +79,9 @@ public class Board extends JPanel implements ActionListener {
 
 
 
-    private void moveGhosts(Graphics2D g2d) {
-    	System.out.println("Ghost at"+ghost_x+", "+ghost_y);
+    private void moveGhosts(Graphics2D g2d) {	
     	if(ghost_dir == 1){
-    		if(mp1.ghost_m.maze[ghost_x][ghost_y+1] != 1){
+    		if(mp1.print.maze[ghost_x][ghost_y+1] != 1){
     			ghost_y++;
     		}else{
     			ghost_y--;
@@ -89,35 +89,38 @@ public class Board extends JPanel implements ActionListener {
     		}
     		
     	}else{
-    		if(mp1.ghost_m.maze[ghost_x][ghost_y-1] != 1){
+    		if(mp1.print.maze[ghost_x][ghost_y-1] != 1){
     			ghost_y--;
     		}else{
     			ghost_y++;
     			ghost_dir = 1;
     		}    		
     	}
-    	g2d.drawImage(ghost, ghost_y*20, ghost_x*20, this);
+    	
         
     }
-
+    private void drawGhost(Graphics2D g2d){
+    	g2d.drawImage(ghost, ghost_y*20, ghost_x*20, this);
+    }
 
     private void movePacman(Graphics2D g2d) {
+
     	if(!mp1.step.isEmpty()){
     		a = mp1.step.pop();
     		g2d.drawImage(pacman1, a.y*20, a.x*20, this);
     	}else{
-    		g2d.drawImage(pacman1, mp1.ghost_m.d.get(0).y*20, mp1.ghost_m.d.get(0).x*20, this);
+    		g2d.drawImage(pacman1, mp1.print.d.get(0).y*20, mp1.print.d.get(0).x*20, this);
     	}
 
     }
 
 
     private void drawMaze(Graphics2D g2d) {
-    	for(int i = 0; i < 15; i++){
-    		for(int j = 0; j < 15; j++){
-    			if(mp1.ghost_m.maze[i][j] == 1){
+    	for(int i = 0; i < mp1.print.maze.length; i++){
+    		for(int j = 0; j < mp1.print.maze[0].length; j++){
+    			if(mp1.print.maze[i][j] == 1){
     				g2d.drawImage(wall,j*20 ,i*20 , this);
-    			}else if(mp1.ghost_m.maze[i][j] == 3){
+    			}else if(mp1.print.maze[i][j] == 3){
     				g2d.drawImage(goal,j*20 ,i*20 , this);
     			}
     		}
@@ -143,6 +146,7 @@ public class Board extends JPanel implements ActionListener {
         drawMaze(g2d);
 
         movePacman(g2d);
+        drawGhost(g2d);
         moveGhosts(g2d);
 
 
