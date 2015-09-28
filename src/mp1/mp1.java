@@ -6,6 +6,7 @@ import mp1.read_maze.info;
 
 import java.awt.EventQueue;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 import javax.swing.JFrame;
@@ -27,6 +28,7 @@ public class mp1 extends JFrame {
 	public static info dots_b;
 	public static info print;
 	public static Stack<MazeObject> step;
+	public static Queue<MazeObject> step2;
      
 	public mp1() {
 		initUI();
@@ -153,7 +155,7 @@ public class mp1 extends JFrame {
 		A_star test3 = new A_star();
 		test3.basic(o_info);
 		System.out.println("openMaze: ");
-		print_maze(ghost_b.maze);
+		print_maze(o_info.maze);
 		System.out.println();
 
 	}
@@ -175,24 +177,33 @@ public class mp1 extends JFrame {
 		search_m = r.in("mediumSearch.txt", 13, 49);
 		dots_m = r.in("mediumDots.txt", 8, 31);
 		dots_b = r.in("bigDots.txt", 17, 28);
-		// bfs_basic();
+		 //bfs_basic();
 		// dfs_basic();
 		// greedy_best_first();
 		// A_star_basic();
 
-//		A_star test = new A_star();
-//		test.multi_dot(dots_b);
-//		print_maze(dots_b.maze);
-//		System.out.println();
+		//test for 2.1
+//		 A_star test = new A_star();
+//		 step2 = test.multi_dot(search_t);
+//		 print_maze(search_t.maze);
+//		 System.out.println();
 		
-		 A_star test = new A_star();
-		 step = test.with_ghost(ghost_b);
-		 print_maze(ghost_b.maze);
-		 System.out.println();
+		//test for 2.2
+		System.out.println("Total goals: "+ dots_m.d.size());
+		A_star test = new A_star();
+		step2 = test.multi_dot(dots_b);
+		print_maze(dots_b.maze);
+		System.out.println();
+		
+		//test for 1.3
+//		 A_star test = new A_star();
+//		 step = test.with_ghost(ghost_b);
+//		 print_maze(ghost_b.maze);
+//		 System.out.println();
 		 
-//		 print = ghost_b;
+		//test for animation
+//		 print = dots_m;
 //		 EventQueue.invokeLater(new Runnable() {
-//		
 //		 @Override
 //		 public void run() {
 //		 mp1 ex = new mp1();

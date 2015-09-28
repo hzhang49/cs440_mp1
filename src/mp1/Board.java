@@ -61,7 +61,7 @@ public class Board extends JPanel implements ActionListener {
         //System.out.println(ghost_y);
         ghost_dir = 1;
         
-        timer = new Timer(400, this);
+        timer = new Timer(500, this);
         timer.start();
         
         setFocusable(true);
@@ -105,9 +105,10 @@ public class Board extends JPanel implements ActionListener {
 
     private void movePacman(Graphics2D g2d) {
 
-    	if(!mp1.step.isEmpty()){
-    		a = mp1.step.pop();
+    	if(!mp1.step2.isEmpty()){
+    		a = mp1.step2.remove();
     		g2d.drawImage(pacman1, a.y*20, a.x*20, this);
+    		mp1.print.maze[a.x][a.y] = 0;
     	}else{
     		g2d.drawImage(pacman1, mp1.print.d.get(0).y*20, mp1.print.d.get(0).x*20, this);
     	}
@@ -121,6 +122,8 @@ public class Board extends JPanel implements ActionListener {
     			if(mp1.print.maze[i][j] == 1){
     				g2d.drawImage(wall,j*20 ,i*20 , this);
     			}else if(mp1.print.maze[i][j] == 3){
+    				g2d.drawImage(goal,j*20 ,i*20 , this);
+    			}else if(mp1.print.maze[i][j] < 0){
     				g2d.drawImage(goal,j*20 ,i*20 , this);
     			}
     		}
@@ -146,8 +149,8 @@ public class Board extends JPanel implements ActionListener {
         drawMaze(g2d);
 
         movePacman(g2d);
-        drawGhost(g2d);
-        moveGhosts(g2d);
+        //drawGhost(g2d);
+        //moveGhosts(g2d);
 
 
     }

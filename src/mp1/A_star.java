@@ -90,7 +90,7 @@ public class A_star {
 		temp.parent = null; //first node
 		
 		frontier.add(temp); 
-		expand++;
+
 		MazeObject front, goal; //goal here indicates one step to goal
 	
 		do
@@ -120,7 +120,7 @@ public class A_star {
 				return; 
 			}
 			
-			
+			int e = 0;
 			if (in.maze[x-1][y]==0)
 			{
 				temp = new MazeObject(x, y); 
@@ -131,7 +131,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 		
 			}
 				
@@ -145,7 +145,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 						
 			}
 			
@@ -160,7 +160,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 				
 			}
 				
@@ -174,9 +174,11 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 		
+				e++;
+			}
+			if(e > 0){
 				expand++;
 			}
-			
 		} while (in.maze[x][y]!=3); 
 		 
 		
@@ -205,7 +207,7 @@ public class A_star {
 		temp.ghost_y = in.ghost.y;
 		temp.ghost_dir = 1;
 		frontier.add(temp); 
-		expand++;
+		
 		MazeObject front, goal; //goal here indicates one step to goal
 	
 		do
@@ -220,6 +222,7 @@ public class A_star {
 			int ghost_y = front.ghost_y;
 			int ghost_dir = front.ghost_dir;
 			frontier.pollFirst(); //remove first element of the queue; 
+			
 			if ((x-1==Gx&&y==Gy) || (x+1==Gx&&y==Gy)||  (x==Gx&&y-1==Gy) ||(x==Gx&&y+1==Gy) )
 			{
 				goal = front; 
@@ -239,7 +242,7 @@ public class A_star {
 				return ret; 
 			}
 			
-			
+			int e = 0;
 			int[] ghost_next = g_next(in.maze, in.ghost.x, ghost_y, ghost_dir);
 			if ((in.maze[x-1][y]==0) && (ghost_next[1]!=y || x-1 != in.ghost.x))
 			{
@@ -253,7 +256,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 		
 			}else if((in.maze[x-1][y]==0) && (ghost_next[1]==y) && (x-1 == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
@@ -267,7 +270,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 	
-				expand++;
+				e++;
 			}
 				
 			if ((in.maze[x][y-1]==0) && (ghost_next[1]!=y-1 || x != in.ghost.x))
@@ -282,7 +285,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 						
 			}else if((in.maze[x][y-1]==0) && (ghost_next[1]==y-1) && (x == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
@@ -296,7 +299,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 			}
 			
 			if ((in.maze[x+1][y]==0) && (ghost_next[1]!=y || x+1 != in.ghost.x))
@@ -312,7 +315,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 				
 			}else if((in.maze[x+1][y]==0) && (ghost_next[1]==y) && (x+1 == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
@@ -326,7 +329,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 			}
 				
 			if ((in.maze[x][y+1]==0) && (ghost_next[1]!=y+1 || x != in.ghost.x))
@@ -341,7 +344,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
-				expand++;
+				e++;
 			}else if((in.maze[x][y+1]==0) && (ghost_next[1]==y+1) && (x == in.ghost.x)){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 
@@ -354,9 +357,11 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				e++;
+			}
+			if(e > 0){
 				expand++;
 			}
-			
 		} while (in.maze[x][y]!=3);
 		return ret; 
 		
@@ -404,7 +409,7 @@ public class A_star {
 		temp.parent = null; //first node
 		
 		frontier.add(temp); 
-		expand++;
+		
 		MazeObject front, goal; //goal here indicates one step to goal
 	
 		do
@@ -431,7 +436,7 @@ public class A_star {
 				return ret; 
 			}
 			
-			
+			int e = 0;
 			if (maze[x-1][y]==0)
 			{
 				temp = new MazeObject(x, y); 
@@ -442,7 +447,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 		
 			}
 				
@@ -456,7 +461,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 						
 			}
 			
@@ -471,7 +476,7 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 
-				expand++;
+				e++;
 				
 			}
 				
@@ -485,15 +490,18 @@ public class A_star {
 				temp.gdist = Math.abs(Gx-temp.x)+Math.abs(Gy-temp.y); 
 				temp.tdist = temp.cost+temp.gdist; 
 				frontier.add(temp); 		
+				e++;
+			}
+			if(e > 0){
 				expand++;
 			}
-			
 		} while (maze[x][y]!=3);
 		return ret; 
 		 
 		
 	}
-	public void multi_dot(info in){
+	public Queue<MazeObject> multi_dot(info in){
+		Queue<MazeObject> r = new LinkedList<MazeObject>();
 		int[][] orig = new int[in.maze.length][in.maze[0].length];
 		for(int i = 0; i < in.maze.length; i++){
 			for(int j = 0; j < in.maze[0].length; j++){
@@ -516,7 +524,7 @@ public class A_star {
 		for(int k = 1; k < total+1; k++){
 			int cost = 999;
 			coor best_goal = null;
-			int expand = 0;
+			
 			for(int i = 0; i < goal.size(); i++){
 				coor curr = goal.get(i);
 				if(curr.q < 0){
@@ -535,15 +543,17 @@ public class A_star {
 					
 					if(curr_cost < cost ){
 						cost = curr_cost;
-						expand = ret[1];
+						total_expand+= ret[1];
 						best_goal = curr;
 					}
 				}
 				
 			}
 			//System.out.println("found best goal with cost: "+ String.valueOf(cost));
+			MazeObject temp = new MazeObject(best_goal.x, best_goal.y);
+			r.add(temp);
 			total_cost += cost;
-			total_expand += expand;
+			
 			best_goal.q = k;
 			start = best_goal;
 		}
@@ -554,6 +564,6 @@ public class A_star {
 			in.maze[goal.get(i).x][goal.get(i).y] = -goal.get(i).q;
 		}
 		
-
+		return r;
 	}
 }
