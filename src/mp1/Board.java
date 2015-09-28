@@ -39,16 +39,26 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
 
     public Board() {
-
+    	try {
+    	    Thread.sleep(2000);                 //1000 milliseconds is one second.
+    	} catch(InterruptedException ex) {
+    	    Thread.currentThread().interrupt();
+    	}
+    	
         ghost = new ImageIcon("ghost.png").getImage();
         pacman1 = new ImageIcon("pacman.png").getImage();
         wall = new ImageIcon("wall.png").getImage();
         goal = new ImageIcon("goal.png").getImage();
         
-        d = new Dimension(460, 220);
-        ghost_x = mp1.ghost_s.ghost.x;
-        ghost_y = mp1.ghost_s.ghost.y;
-
+        d = new Dimension(360, 320);
+       
+        ghost_x = mp1.ghost_m.ghost.x;
+        System.out.println(ghost_x);
+        
+        
+        ghost_y = mp1.ghost_m.ghost.y;
+        System.out.println(ghost_y);
+        ghost_dir = 1;
         
         timer = new Timer(1000, this);
         timer.start();
@@ -69,8 +79,9 @@ public class Board extends JPanel implements ActionListener {
 
 
     private void moveGhosts(Graphics2D g2d) {
+    	System.out.println("Ghost at"+ghost_x+", "+ghost_y);
     	if(ghost_dir == 1){
-    		if(mp1.ghost_s.maze[ghost_x][ghost_y+1] != 1){
+    		if(mp1.ghost_m.maze[ghost_x][ghost_y+1] != 1){
     			ghost_y++;
     		}else{
     			ghost_y--;
@@ -78,7 +89,7 @@ public class Board extends JPanel implements ActionListener {
     		}
     		
     	}else{
-    		if(mp1.ghost_s.maze[ghost_x][ghost_y-1] != 1){
+    		if(mp1.ghost_m.maze[ghost_x][ghost_y-1] != 1){
     			ghost_y--;
     		}else{
     			ghost_y++;
@@ -95,18 +106,18 @@ public class Board extends JPanel implements ActionListener {
     		a = mp1.step.pop();
     		g2d.drawImage(pacman1, a.y*20, a.x*20, this);
     	}else{
-    		g2d.drawImage(pacman1, mp1.ghost_s.d.get(0).y*20, mp1.ghost_s.d.get(0).x*20, this);
+    		g2d.drawImage(pacman1, mp1.ghost_m.d.get(0).y*20, mp1.ghost_m.d.get(0).x*20, this);
     	}
 
     }
 
 
     private void drawMaze(Graphics2D g2d) {
-    	for(int i = 0; i < 10; i++){
-    		for(int j = 0; j < 22; j++){
-    			if(mp1.ghost_s.maze[i][j] == 1){
+    	for(int i = 0; i < 15; i++){
+    		for(int j = 0; j < 15; j++){
+    			if(mp1.ghost_m.maze[i][j] == 1){
     				g2d.drawImage(wall,j*20 ,i*20 , this);
-    			}else if(mp1.ghost_s.maze[i][j] == 3){
+    			}else if(mp1.ghost_m.maze[i][j] == 3){
     				g2d.drawImage(goal,j*20 ,i*20 , this);
     			}
     		}

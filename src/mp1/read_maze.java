@@ -62,8 +62,11 @@ public class read_maze {
 						ret.d.add(new dest(i, j));
 						break;
 					case 'G':
+						//System.out.println("found ghost start");
 						ret.ghost.x = i;
+						//System.out.println(i);
 						ret.ghost.y = j;
+						//System.out.println(j);
 						break;
 						
 					default:

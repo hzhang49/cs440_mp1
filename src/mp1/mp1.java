@@ -23,6 +23,8 @@ public class mp1 extends JFrame {
 	public static info search_t;
 	public static info search_s;
 	public static info search_m;
+	public static info dots_m;
+	public static info dots_b;
 	public static Stack<MazeObject> step;
      
 	public mp1() {
@@ -34,7 +36,7 @@ public class mp1 extends JFrame {
 		add(new Board());
 		setTitle("Pacman");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(460, 245);
+		setSize(360, 345);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -170,27 +172,30 @@ public class mp1 extends JFrame {
 		search_t = r.in("tinySearch.txt", 8, 23);
 		search_s = r.in("smallSearch.txt", 13, 30);
 		search_m = r.in("mediumSearch.txt", 13, 49);
+		dots_m = r.in("mediumDots.txt", 8, 31);
+		dots_b = r.in("bigDots.txt", 17, 28);
 		// bfs_basic();
 		// dfs_basic();
 		// greedy_best_first();
 		// A_star_basic();
 
-		A_star test = new A_star();
-		test.multi_dot(search_t);
-		print_maze(search_t.maze);
-		System.out.println();
-		// A_star test = new A_star();
-		// step = test.with_ghost(ghost_s);
-		// print_maze(ghost_s.maze);
-		// System.out.println();
-		//
-		// EventQueue.invokeLater(new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		// mp1 ex = new mp1();
-		// ex.setVisible(true);
-		// }
-		// });
+//		A_star test = new A_star();
+//		test.multi_dot(search_t);
+//		print_maze(search_t.maze);
+//		System.out.println();
+		
+		 A_star test = new A_star();
+		 step = test.with_ghost(ghost_m);
+		 print_maze(ghost_m.maze);
+		 System.out.println();
+		 
+//		 EventQueue.invokeLater(new Runnable() {
+//		
+//		 @Override
+//		 public void run() {
+//		 mp1 ex = new mp1();
+//		 ex.setVisible(true);
+//		 }
+//		 });
 	}
 }

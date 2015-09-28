@@ -188,9 +188,10 @@ public class A_star {
 	
 	public Stack<MazeObject> with_ghost(info in){
 		System.out.println("A* search for 1.3");
+		//System.out.println("Ghost is starting at: "+ String.valueOf(in.ghost.x)+", "+String.valueOf(in.ghost.y));
 		Stack<MazeObject> ret = new Stack<MazeObject>();
 		int Sx=in.start_x, Sy=in.start_y; 
-		
+		int expand = 0;
 		int Gx=in.d.get(0).x, Gy=in.d.get(0).y; 
 	
 		int x=Sx, y=Sy; 
@@ -204,6 +205,7 @@ public class A_star {
 		temp.ghost_y = in.ghost.y;
 		temp.ghost_dir = 1;
 		frontier.add(temp); 
+		expand++;
 		MazeObject front, goal; //goal here indicates one step to goal
 	
 		do
@@ -224,6 +226,7 @@ public class A_star {
 				System.out.println("Found goal"); 
 				int cost = goal.cost+1; 
 				System.out.println("Steps to reach goal is " + cost);
+				System.out.println("Node expanded: "+expand);
 				while (goal != null)
 					{
 						//System.out.println("current x, y axis are "+goal.x+" "+goal.y);
@@ -250,6 +253,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 		
 			}else if(in.maze[x-1][y]==0 && ghost_next[1]==y){
 				//System.out.println("Detected ghost, stop");
@@ -262,7 +266,8 @@ public class A_star {
 				temp.tdist = temp.cost+temp.gdist; 
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
-				frontier.add(temp); 				
+				frontier.add(temp); 	
+				expand++;
 			}
 				
 			if (in.maze[x][y-1]==0 && ghost_next[1]!=y-1)
@@ -277,6 +282,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 						
 			}else if(in.maze[x][y-1]==0 && ghost_next[1]==y-1){
 				//System.out.println("Detected ghost, stop");
@@ -290,6 +296,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 			}
 			
 			if (in.maze[x+1][y]==0 && ghost_next[1]!=y)
@@ -305,6 +312,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 				
 			}else if(in.maze[x+1][y]==0 && ghost_next[1]==y){
 				//System.out.println("Detected ghost, stop");
@@ -318,6 +326,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 			}
 				
 			if (in.maze[x][y+1]==0 && ghost_next[1]!=y+1)
@@ -331,7 +340,8 @@ public class A_star {
 				temp.tdist = temp.cost+temp.gdist; 
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
-				frontier.add(temp); 				
+				frontier.add(temp); 
+				expand++;
 			}else if(in.maze[x][y+1]==0 && ghost_next[1]==y+1){
 				//System.out.println("Detected ghost, stop");
 				temp = new MazeObject(x, y); 
@@ -344,6 +354,7 @@ public class A_star {
 				temp.ghost_y = ghost_next[1];
 				temp.ghost_dir = ghost_next[0];
 				frontier.add(temp); 
+				expand++;
 			}
 			
 		} while (in.maze[x][y]!=3);
